@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"sync"
 )
 
@@ -122,7 +121,7 @@ func (ch *Chunk) Drain() {
 	for bytesAhead > 0 {
 		readSize := int64(bytesAhead)
 
-		if _, err := io.CopyN(ioutil.Discard, ch.R, readSize); err != nil {
+		if _, err := io.CopyN(io.Discard, ch.R, readSize); err != nil {
 			return
 		}
 		bytesAhead -= int(readSize)
